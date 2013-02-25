@@ -115,16 +115,16 @@ let statusAscii="%4*\ %b:0x%B\ %*"
 let statusBody=statusFileType.statusAscii.statusBreakPoint
 let statusBlank="%4*%=%*"
 let statusRuler="%4*\ %l/%L,%c\ %p%%%\\ %*"
-let statusTime="%3*\ %{strftime(\"%F\ %T\")}\ %*"
+let statusTime="%1*\ %{strftime(\"%F\ %T\")}\ %*"
 let statusEnd=statusRuler.statusTime
 let statusString=statusHead.statusBody.statusBlank.statusEnd
 set statusline=%!statusString
 
 set t_Co=256
-hi User1 ctermbg=089 ctermfg=white
-hi User2 ctermbg=090 ctermfg=white
-hi User3 ctermbg=093 ctermfg=white
-hi User4 ctermbg=black ctermfg=white
+hi User1 ctermbg=white ctermfg=black
+hi User2 ctermbg=lightgray ctermfg=black
+hi User3 ctermbg=gray ctermfg=black
+hi User4 ctermbg=darkgray ctermfg=white
 
 set nu
 set cursorline
