@@ -128,7 +128,7 @@ hi User4 ctermbg=darkgray ctermfg=white
 
 set nu
 set cursorline
-filetype plugin indent on
+"filetype plugin indent on
 hi LineNr ctermfg=gray
 "设置制表符、回车、空格的显示
 set list
