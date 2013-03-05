@@ -41,6 +41,9 @@ set showmatch
 " How many tenths of a second to blink when matching brackets
 set mat=1
 
+" Tabline
+set showtabline=2
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
@@ -92,6 +95,10 @@ map <C-j> <C-W>j
 map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
+
+" Tabnext
+map <C-n> :tabnext<cr>
+map <C-p> :tabprevious<cr>
 
 " Return to last edit position when opening files (You want this!)
 autocmd BufReadPost *
