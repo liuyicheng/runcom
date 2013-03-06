@@ -57,6 +57,10 @@ set mat=1
 set lbr
 set tw=500
 
+"打开文件类型检测
+filetype on
+filetype plugin on
+
 set comments=sl:/*,mb:*,ex:*/
 "设置字典
 autocmd FileType javascript set dictionary=~/.vim/dict/javascript.dict
@@ -146,21 +150,17 @@ set laststatus=2
 
 let statusHead="%1*\ %{getcwd()}\/\ %*"
 let statusBreakPoint="%<"
-let statusFileType="%3*\ %{((&ft==\"\")?\"none\":&ft)}\ %{(&fenc==\"\"?&enc:&fenc).(&bomb?\".BOM\":\"\")}\ %{&ff}\ %*"
-let statusAscii="%4*\ %b:0x%B\ %*"
+let statusFileType="%2*\ %{((&ft==\"\")?\"none\":&ft)}\ %{(&fenc==\"\"?&enc:&fenc).(&bomb?\".BOM\":\"\")}\ %{&ff}\ %*"
+let statusAscii="%3*\ %b:0x%B\ %*"
 let statusBody=statusFileType.statusAscii.statusBreakPoint
-let statusBlank="%4*%=%*"
-let statusEnd="%4*\ %l/%L,%c\ %p%%%\\ %*"
+let statusBlank="%3*%=%*"
+let statusEnd="%3*\ %l/%L,%c\ %p%%%\\ %*"
 let statusString=statusHead.statusBody.statusBlank.statusEnd
 set statusline=%!statusString
 
-hi User1 ctermbg=000 ctermfg=white
-hi User2 ctermbg=lightgray ctermfg=black
-hi User3 ctermbg=008 ctermfg=white
-hi User4 ctermbg=darkgray ctermfg=016
-
-"打开文件类型检测
-filetype on
+hi User1 ctermbg=015 ctermfg=000
+hi User2 ctermbg=007 ctermfg=000
+hi User3 ctermbg=008 ctermfg=015
 
 "插件pathogen，用于插件管理
 execute pathogen#infect()
@@ -171,183 +171,5 @@ map <leader>n :NERDTreeToggle<CR>
 "autocmd vimenter * NERDTree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
-
-
-""为特定文件类型允许插件文件的载入
-"filetype plugin on
-"filetype plugin indent on
-"au BufNewFile,BufRead *.as set filetype=actionscript
-"" Multiple filetype for freemarker
-"au BufNewFile,BufRead *.ftl set filetype=ftl.html
-"au BufReadCmd *.jar,*.xpi,*.egg call zip#Browse(expand("<amatch>"))
-"autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-"autocmd FileType css set foldmethod=marker
-"autocmd FileType python filetype plugin indent on
-"autocmd FileType python setlocal et sta sw=4 sts=4
-"
-"" 设置javascriptlint
-"autocmd FileType javascript set makeprg=jslint\ %
-"autocmd FileType javascript set errorformat=%f(%l):\ %m
-"autocmd FileType javascript inoremap <silent> <F9> <C-O>:make<cr>
-"autocmd FileType javascript map <silent> <F9> :make<cr>
-"
-""" In visual mode, git blame the selection
-""function! GitBlame() range
-""" look up function-range-example for more information
-""    let beg_line = line("'<")
-""    let end_line = line("'>")
-""    exec '!git blame -L '. beg_line. ','. end_line. ' %'
-""endfunction
-""vnoremap <leader>g :call GitBlame()<cr>
-""" In normal mode, git blame the current line
-""nnoremap <leader>g :exec '!git blame -L '. line("."). ','. line("."). ' %'<cr>
-"
-""初始化所有插件
-"function! BundlesInit()
-"    let bundles = {
-"            \'vim-pathogen' : 'github.com/tpope/vim-pathogen.git',
-"            \'vim-fugitive' : 'github.com/tpope/vim-fugitive.git',
-"            \'nerdtree' : 'github.com/scrooloose/nerdtree.git',
-"            \'nerdcommenter' : 'github.com/scrooloose/nerdcommenter.git',
-"            \'ctrlp.vim' : 'github.com/kien/ctrlp.vim.git',
-"            \'command-t' : 'git.wincent.com/command-t.git',
-"            \'snipmate.vim' : 'github.com/msanders/snipmate.vim.git',
-"            \'tagbar' : 'github.com/majutsushi/tagbar.git',
-"            \'vim-taglist-plus' : 'github.com/int3/vim-taglist-plus.git',
-"            \'zencoding-vim' : 'github.com/mattn/zencoding-vim.git',
-"            \'syntastic' : 'github.com/scrooloose/syntastic.git',
-"            \'vim-node.js' : 'github.com/mmalecki/vim-node.js.git',
-"            \'vim-colors-solarized' : 'github.com/altercation/vim-colors-solarized.git',
-"            \'vim-vividchalk' : 'github.com/tpope/vim-vividchalk.git'
-"        \}
-"    let bundleDir = $HOME . '/.vim/bundle/'
-"    if !isdirectory(bundleDir)
-"        let output = mkdir(bundleDir)
-"    endif
-"
-"    for key in keys(bundles)
-"        let dir = bundleDir . key
-"        if !isdirectory(dir)
-"            let cmd = 'git clone git://' . bundles[key] . ' ' . bundleDir . key
-"            "execute cmd
-"            echo 'fetching ' . key . '...'
-"            let output = system(cmd)
-"        endif
-"    endfor
-"
-"    if exists(':Helptags')
-"        :Helptags
-"    endif
-"
-"    echo 'all bundles are ready.'
-"endfunction
-"nnoremap <leader>h :call BundlesInit()<cr>
-"
-""初始化配置及pathogen
-"function! VimInitAll()
-"    "载入本地扩展配置文件
-"    let vimrc_extend  = $HOME . "/.vimrc.ext"
-"    if filereadable(vimrc_extend)
-"        execute "source " . vimrc_extend
-"    endif
-"
-"    "初始化pathogen插件
-"    let pathogen = $HOME . '/.vim/bundle/vim-pathogen/autoload/pathogen.vim'
-"    if !filereadable(pathogen)
-"        call BundlesInit()
-"    endif
-"
-"    execute "source " . pathogen
-"    call pathogen#infect()
-"
-"endfunction
-"
-""CtrlP插件设置
-"let g:ctrlp_map = '<leader>p'
-"let g:ctrlp_by_filename = 1
-"
-""Command-T插件设置
-"let g:CommandTMaxHeight = 10
-"let g:CommandTMinHeight = 10
-"let g:CommandTCancelMap = ['<Esc>', '<C-c>']
-"
-""NERDTree插件设置
-""let NERDTreeWinPos = 'left'
-"nnoremap <leader>nt :NERDTree<cr>
-"
-""syntastic插件设置
-"let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': ['javascript', 'php'] }
-"let g:syntastic_auto_loc_list = 1
-""let g:syntastic_javascript_gjslint_conf = '--strict'
-"nnoremap <leader>sc :SyntasticCheck<cr>
-"
-"call VimInitAll()
-"
-"""""""""""""""""""""""""" below is for testing """""""""""""""""""""""""
-"
-"set background=dark
-""set cursorline
-""let g:solarized_termtrans = 1
-""colorscheme solarized
-""
-"
-"
-""""""""""""""""""""""""""""""
-"" TagList setting
-""""""""""""""""""""""""""""""
-""Exuberant ctags程序的位置
-""let Tlist_Ctags_Cmd="/opt/local/bin/ctags"
-""let Tlist_Ctags_Cmd="/usr/local/bin/jsctags"
-""let Tlist_Inc_Winwidth=100
-""let Tlist_WinWidth='auto'
-""在右侧窗口打开
-""let Tlist_Use_Right_Window=1
-""只显示当前文件的tag
-""let Tlist_File_Fold_Auto_Close=1
-""如果Taglist是最后一个窗口则退出vim
-""let Tlist_Exit_OnlyWindow = 1
-""let g:tlist_javascript_settings = 'javascript;s:string;a:array;o:object;f:function'
-"let g:tlist_javascript_settings = 'javascript;f:function;c:class;o:object;m:method;s:string;a:array;n:constant'
-"
-""let g:tagbar_ctags_bin = '/usr/local/bin/jsctags'
-"
-"""""""""""""""""""""""""""""""
-"" BufExplore settingr
-"""""""""""""""""""""""""""""""
-"let g:bufExplorerDefaultHelp=0       " Do not show default help.
-"let g:bufExplorerShowRelativePath=1  " Show relative paths.
-"let g:bufExplorerSortBy='mru'        " Sort by most recently used.
-"let g:bufExplorerSplitRight=0        " Split left.
-"let g:bufExplorerSplitVertical=1     " Split vertically.
-"let g:bufExplorerSplitVertSize = 30  " Split width
-"let g:bufExplorerUseCurrentWindow=1  " Open in new window.
-"
-"""""""""""""""""""""""""""""""
-"" winManager setting
-"""""""""""""""""""""""""""""""
-""let g:winManagerWindowLayout = \""BufExplorer,FileExplorer|TagList"
-"let g:winManagerWindowLayout = "FileExplorer"
-"let g:winManagerWidth = 30
-"let g:defaultExplorer = 0
-"nmap <C-W><C-F> :FirstExplorerWindow<cr>
-"nmap <C-W><C-B> :BottomExplorerWindow<cr>
-"nmap <silent> <leader>wm :WMToggle<cr> 
-
-
-" ======= 引号 && 括号自动匹配 ======= "
-"inoremap ( ()<ESC>i
-"inoremap ) <c-r>=ClosePair(')')<cr>
-"inoremap { {}<ESC>i
-"inoremap } <c-r>=ClosePair('}')<cr>
-"inoremap [ []<ESC>i
-"inoremap ] <c-r>=ClosePair(']')<cr>
-"inoremap " ""<ESC>i
-"inoremap ' ''<ESC>i
-"inoremap ` ``<ESC>i
-"function ClosePair(char)
-"    if getline('.')[col('.') - 1] == a:char
-"        return "\<Right>"
-"    else
-"        return a:char
-"    endif
-"endf
+"autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags noci
+"autocmd FileType html set omnifunc=htmlcomplete#CompleteTags noci
