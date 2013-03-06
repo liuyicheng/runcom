@@ -46,7 +46,7 @@ set wrap "Wrap lines
 "Be smart when using tabs ;)
 set smarttab
 "鼠标捕捉
-set mouse=a
+"set mouse=a
 "打开语法高亮
 syntax on
 "Show matching brackets when text indicator is over them
@@ -133,7 +133,7 @@ autocmd BufReadPost *
 set viminfo^=%
 
 "打开php折叠
-let php_folding = 1 
+let php_folding = 1
 "打开javascript折叠
 let b:javascript_fold=1
 "打开javascript对dom、html和css的支持
@@ -154,11 +154,10 @@ let statusEnd="%4*\ %l/%L,%c\ %p%%%\\ %*"
 let statusString=statusHead.statusBody.statusBlank.statusEnd
 set statusline=%!statusString
 
-set t_Co=256
-hi User1 ctermbg=white ctermfg=black
+hi User1 ctermbg=000 ctermfg=white
 hi User2 ctermbg=lightgray ctermfg=black
-hi User3 ctermbg=gray ctermfg=black
-hi User4 ctermbg=darkgray ctermfg=white
+hi User3 ctermbg=008 ctermfg=white
+hi User4 ctermbg=darkgray ctermfg=016
 
 "打开文件类型检测
 filetype on
