@@ -41,8 +41,7 @@ set softtabstop=4
 set expandtab
 "自动缩进
 set autoindent
-set si "Smart indent
-set wrap "Wrap lines
+"set si "Smart indent
 "Be smart when using tabs ;)
 set smarttab
 "鼠标捕捉
@@ -56,6 +55,7 @@ set mat=1
 "Linebreak on 500 characters
 set lbr
 set tw=500
+set wrap "Wrap lines
 
 "打开文件类型检测
 filetype on
@@ -72,6 +72,7 @@ set background=dark
 set cursorline
 set t_Co=256
 hi LineNr ctermfg=gray
+hi Comment ctermfg=gray
 "显示标签栏 0: 从不 1: 大于1个时显示 2: 总是
 set showtabline=2
 
@@ -95,8 +96,7 @@ vnoremap < <gv
 vnoremap > >gv 
 
 "映射F12键为行号和list的开关
-map <F12> :set number!<cr>:set list!<cr>
-
+map <F12> :set number!<cr>:set list!<cr>:set autoindent!<cr>
 "Treat long lines as break lines (useful when moving around in them)
 map j gj
 map k gk
@@ -110,6 +110,7 @@ map <C-l> <C-W>l
 "Tabnext
 map <C-n> :tabnext<cr>
 map <C-p> :tabprevious<cr>
+map <leader>t :tabedit 
 
 "nnoremap <C-c> :update<cr>
 "cnoremap <C-c> <Esc>:update<cr>
@@ -158,9 +159,9 @@ let statusEnd="%3*\ %l/%L,%c\ %p%%%\\ %*"
 let statusString=statusHead.statusBody.statusBlank.statusEnd
 set statusline=%!statusString
 
-hi User1 ctermbg=015 ctermfg=000
-hi User2 ctermbg=007 ctermfg=000
-hi User3 ctermbg=008 ctermfg=015
+hi User1 ctermbg=015 ctermfg=008
+hi User2 ctermbg=007 ctermfg=008
+hi User3 ctermbg=008 ctermfg=007
 
 "插件pathogen，用于插件管理
 execute pathogen#infect()
