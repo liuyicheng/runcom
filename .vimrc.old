@@ -57,12 +57,23 @@ set lbr
 set tw=500
 set wrap "Wrap lines
 
+"打开文件类型检测
+filetype on
+filetype plugin on
+
+set comments=sl:/*,mb:*,ex:*/
+"设置字典
+"autocmd FileType javascript set dictionary=~/.vim/dict/javascript.dict
+"autocmd FileType css set dictionary=~/.vim/dict/css.dict
+"autocmd FileType php set dictionary=~/.vim/dict/php.dict
 "默认配色为candy
-color desert
+color candy
+set background=dark
 set cursorline
-hi LineNr ctermfg=darkgray
-hi Comment ctermfg=darkgray
-hi StatusLine ctermbg=white ctermfg=darkgray
+set t_Co=256
+hi LineNr ctermfg=gray
+hi Comment ctermfg=gray
+hi Visual ctermfg=black ctermbg=white
 "显示标签栏 0: 从不 1: 大于1个时显示 2: 总是
 set showtabline=2
 
@@ -73,32 +84,50 @@ set listchars=tab:>\ ,trail:·,eol:¬,nbsp:_
 "设置backspace键可以删除行首
 set backspace=indent,eol,start
 
+"切换buffer不用强制保存
+set hidden
 
 "重新载入配置
 map <leader>s :source ~/.vimrc<cr>
-"Tabnext
-map <C-n> :tabnext<cr>
-map <C-p> :tabprevious<cr>
-map <leader>t :tabedit 
+
 "visual模式修改缩进时不退出该模式
 vnoremap < <gv
 vnoremap > >gv
+
 "映射F12键为行号和list的开关
 map <F12> :set number!<cr>:set list!<cr>:set autoindent!<cr>
 "Treat long lines as break lines (useful when moving around in them)
 map j gj
 map k gk
+
+"Smart way to move between windows
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-h> <C-W>h
+map <C-l> <C-W>l
+
+"Tabnext
+map <C-n> :tabnext<cr>
+map <C-p> :tabprevious<cr>
+map <leader>t :tabedit 
+
+"nnoremap <C-c> :update<cr>
+"cnoremap <C-c> <Esc>:update<cr>
+"inoremap <C-c> <Esc>:update<cr>
+
 "insert mode shortcut
 inoremap <C-h> <Left>
 inoremap <C-j> <Down>
 inoremap <C-k> <Up>
 inoremap <C-l> <Right>
 inoremap <C-d> <DELETE>
+
 "command line
 cnoremap <C-A> <Home>
 cnoremap <C-E> <End>
 cnoremap <C-B> <Left>
 cnoremap <C-F> <Right>
+
 "Return to last edit position when opening files (You want this!)
 autocmd BufReadPost *
      \ if line("'\"") > 0 && line("'\"") <= line("$") |
@@ -106,6 +135,34 @@ autocmd BufReadPost *
      \ endif
 "Remember info about open buffers on close
 set viminfo^=%
+
+"打开php折叠
+"let php_folding = 1
+"打开javascript折叠
+"let b:javascript_fold=1
+"打开javascript对dom、html和css的支持
+"let javascript_enable_domhtmlcss=1
+"使用空格键开关折叠
+"nnoremap <space> @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<cr>
+
 "Always show the status line
 set laststatus=2
 
+let statusHead="%1*\ %{getcwd()}\/\ %*"
+let statusBreakPoint="%<"
+let statusFileType="%2*\ %{((&ft==\"\")?\"none\":&ft)}\ %{(&fenc==\"\"?&enc:&fenc).(&bomb?\".BOM\":\"\")}\ %{&ff}\ %*"
+let statusAscii="%3*\ %b:0x%B\ %*"
+let statusBody=statusFileType.statusAscii.statusBreakPoint
+let statusBlank="%3*%=%*"
+let statusEnd="%3*\ %l/%L,%c\ %p%%%\\ %*"
+"let statusString=statusHead.statusBody.statusBlank.statusEnd
+let statusString=statusBlank.statusEnd
+set statusline=%!statusString
+
+hi User1 ctermbg=015 ctermfg=008
+hi User2 ctermbg=007 ctermfg=008
+hi User3 ctermbg=black ctermfg=white
+
+"NERDTree插件设置
+"let NERDTreeWinPos = 'left'
+map <leader>n :NERDTreeToggle<CR>
