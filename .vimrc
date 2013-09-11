@@ -37,6 +37,8 @@ set tabstop=4
 set shiftwidth=4
 "编辑插入tab时，把tab算作的空格数
 set softtabstop=4
+map <F2> :set tabstop=2<cr>:set shiftwidth=2<cr>:set softtabstop=2<cr>
+map <F4> :set tabstop=4<cr>:set shiftwidth=4<cr>:set softtabstop=4<cr>
 "缩进使用空格
 set expandtab
 "自动缩进
